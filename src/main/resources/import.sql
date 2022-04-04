@@ -1,0 +1,2 @@
+INSERT INTO customer (id, name, surename, email, birthdate) VALUES (1, 'John', 'Doe', 'john@doe.com', '2000-01-01');
+INSERT INTO customer (id, name, surename, email, birthdate) VALUES (2, 'Jane', 'Doe', 'jane@doe.com', '2005-01-01');
