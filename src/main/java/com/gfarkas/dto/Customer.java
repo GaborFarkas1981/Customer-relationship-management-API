@@ -1,17 +1,11 @@
-package com.gfarkas.dao;
+package com.gfarkas.dto;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.time.ZonedDateTime;
 
-@Entity
 @Data
-@Table(name = "customer")
-public class CustomerEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Customer {
     private Long id;
     private String name;
     private String surename;
