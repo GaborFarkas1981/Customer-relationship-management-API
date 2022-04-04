@@ -13,4 +13,4 @@ First I need a Spring Boot project, dependencies.
 - One can test endpoints by visiting http://localhost:8080/swagger-ui.html
 - Mapstruct dependency added for mapping data between dao and dto
 - For using Mapstruct with Lombok you need to make some modification: https://springframework.guru/using-mapstruct-with-project-lombok/
-- 
+- Mapstruct works with Lombok, mapper tests passed
