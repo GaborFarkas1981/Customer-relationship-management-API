@@ -26,11 +26,14 @@ class CustomerServiceImplTest {
     @InjectMocks
     CustomerServiceImpl service;
 
+    private Customer actual;
+    private ZonedDateTime birthDate;
+
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
         ZoneId zoneId = ZoneId.of("UTC-1");
-        ZonedDateTime birthDate = ZonedDateTime.of(2000, 10, 20, 23, 45, 0, 0, zoneId);
+        birthDate = ZonedDateTime.of(2000, 10, 20, 23, 45, 0, 0, zoneId);
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setBirthdate(birthDate);
         customerEntity.setEmail("email");
@@ -41,23 +44,33 @@ class CustomerServiceImplTest {
         customerDto.setBirthdate(birthDate);
         customerDto.setEmail("email");
         customerDto.setName("name");
-        customerDto.setSurename("sureName");
-        customerDto.setId(1L);
+        customerDto.setSurename("surename");
         Mockito.when(mapper.toCustomer(Mockito.any())).thenReturn(customerDto);
+        actual = service.get(1L);
     }
 
     @Test
     void getShouldReturnCustomerDtoById() {
-       Assertions.assertNotNull(service.get(1L));
+
+        Assertions.assertNotNull(actual);
     }
 
     @Test
     void getShouldReturnDto() {
-        Assertions.assertInstanceOf(Customer.class, service.get(1L));
+        Assertions.assertInstanceOf(Customer.class, actual);
     }
 
     @Test
-    void list() {
+    void getShouldReturnDtoWithSameFields() {
+        Assertions.assertEquals("surename", actual.getSurename());
+        Assertions.assertEquals("name", actual.getName());
+        Assertions.assertEquals(birthDate, actual.getBirthdate());
+        Assertions.assertEquals("email", actual.getEmail());
+    }
+
+    @Test
+    void listShouldReturnListOfCustomerDtos() {
+        Assertions.assertNotNull(service.list());
     }
 
     @Test
