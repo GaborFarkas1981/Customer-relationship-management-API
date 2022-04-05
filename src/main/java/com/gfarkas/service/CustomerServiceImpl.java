@@ -29,7 +29,6 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
         if (optionalCustomer.isPresent()) {
             return mapper.toCustomer(optionalCustomer.get());
         }
-
         throw new NoSuchElementFoundException("Customer with id: " + id + " not found!");
     }
 
@@ -60,13 +59,20 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
             return mapper.toCustomer(repository.save(customerToSave));
         }
-
         throw new NoSuchElementFoundException("Customer with id: " + id + " not found!");
     }
 
     @Override
     public Customer delete(Long id) {
-        return null;
+        Optional<CustomerEntity> customerOptional = repository.findById(id);
+        CustomerEntity existingCustomer;
+        if (customerOptional.isPresent()) {
+            existingCustomer = customerOptional.get();
+            repository.delete(existingCustomer);
+
+            return mapper.toCustomer(existingCustomer);
+        }
+        throw new NoSuchElementFoundException("Customer with id: " + id + " not found!");
     }
 
     @Override
