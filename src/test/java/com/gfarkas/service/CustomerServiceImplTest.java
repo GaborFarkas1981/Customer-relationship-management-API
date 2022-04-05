@@ -14,6 +14,8 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 class CustomerServiceImplTest {
 
@@ -45,7 +47,17 @@ class CustomerServiceImplTest {
         customerDto.setEmail("email");
         customerDto.setName("name");
         customerDto.setSurename("surename");
+        Customer customerDto2 = new Customer();
+        customerDto2.setBirthdate(birthDate);
+        customerDto2.setEmail("email2");
+        customerDto2.setName("name2");
+        customerDto2.setSurename("surename2");
+        List<Customer> customerList = new ArrayList<>();
+        customerList.add(customerDto);
+        customerList.add(customerDto2);
         Mockito.when(mapper.toCustomer(Mockito.any())).thenReturn(customerDto);
+        Mockito.when(mapper.toCustomers(Mockito.any())).thenReturn(customerList);
+        Mockito.when(repository.save(Mockito.any())).thenReturn(customerDto);
         actual = service.get(1L);
     }
 
@@ -70,11 +82,14 @@ class CustomerServiceImplTest {
 
     @Test
     void listShouldReturnListOfCustomerDtos() {
-        Assertions.assertNotNull(service.list());
+        List<Customer> customers = service.list();
+        Assertions.assertNotNull(customers);
+        Assertions.assertEquals(2, customers.size());
     }
 
     @Test
-    void create() {
+    void createShouldReturnDto() {
+        Assertions.assertNotNull(service.create(new Customer()));
     }
 
     @Test
