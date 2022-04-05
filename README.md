@@ -17,21 +17,22 @@ First I need a Spring Boot project, dependencies.
 
 OOP principles:
 
-- Inheritance: Our CustomerRepository inherits (extends) JpaRepository, that's why we can use its methods (e.g.: findById()) Subclass extends its Superclass
+- Inheritance: CustomerRepository inherits (extends) JpaRepository, that's why we can use its methods (e.g.: findById()) Subclass extends its Superclass
 In Java multiple inheritance is not allowed (a class can extend only one class)
 
-- Encapsulation: Our Customer class secures all of its attributes (private fields) so no one can change them directly. To allow modification of a field 
+- Encapsulation: Customer class secures all of its attributes (private fields) so no one can change them directly. To allow modification of a field 
 we use setters. In a setter we can create our own business logic how we allow or ban (control) modification of a particular field.
 With a getter we can access the value of a particular field. We can create our own business logic how we allow or ban (control) to get the information of a field.
 
 - Abstraction: We can hide (not exposing) complex business logic by creating private methods for them and allowing access for only simplified logic
 
-- Polymorphism: Our CustumerServiceImpl class implements the CustomerServiceInterface, implements, and overrides all of its method. 
-  We can allow executing the same method with different outcome.
+- Polymorphism: CustumerServiceImpl class implements the CustomerServiceInterface, implements, and overrides all of its method. 
+  We can allow executing the same method with different outcome. CustomerMapper interface contains overloaded method stubs. 
+  They have same signatures but different parameters.
   - Method overriding: We can override the inherited methods of a superclass by using the same signature of the method,
   and we can implement a different business logic in it. To show that it is an overrode method we can use the @Override annotation.
   - Method overloading: We can create methods with the same name but different signature (order or number of different parameters)
   to create different business logic for them.
 
-All endpoints can only receive DTOs
-@Transactional annotations are applied in default JpaRepository / CrudRepository implementation
+- All endpoints can only receive DTOs
+- @Transactional annotations are applied in default JpaRepository / CrudRepository implementation

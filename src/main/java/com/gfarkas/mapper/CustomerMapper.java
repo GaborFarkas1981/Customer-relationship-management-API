@@ -13,11 +13,11 @@ public interface CustomerMapper {
     CustomerEntity toCustomerEntity(Customer customer);
 
     @Mapping(target = "id", ignore = true)
-    List<CustomerEntity> toCustomerEntities(List<Customer> customers);
+    List<CustomerEntity> toCustomerEntity(List<Customer> customers);
 
     @Mapping(target = "id", ignore = true)
     Customer toCustomer(CustomerEntity entity);
 
     @Mapping(target = "id", ignore = true)
-    List<Customer> toCustomers(List<CustomerEntity> entities);
+    List<Customer> toCustomer(List<CustomerEntity> entities);
 }
