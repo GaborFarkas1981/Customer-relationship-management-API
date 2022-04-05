@@ -27,7 +27,8 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public List<Customer> list() {
-        return null;
+
+        return mapper.toCustomer(repository.findAll());
     }
 
     @Override
