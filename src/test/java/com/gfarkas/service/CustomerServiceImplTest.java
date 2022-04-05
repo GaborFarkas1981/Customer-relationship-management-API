@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class CustomerServiceImplTest {
 
@@ -58,6 +59,7 @@ class CustomerServiceImplTest {
         Mockito.when(mapper.toCustomer(Mockito.any())).thenReturn(customerDto);
         Mockito.when(mapper.toCustomerEntity(Mockito.any())).thenReturn(customerEntity);
         Mockito.when(mapper.toCustomers(Mockito.any())).thenReturn(customerList);
+        Mockito.when(repository.findById(Mockito.anyLong())).thenReturn(Optional.of(customerEntity));
         Mockito.when(repository.save(Mockito.any())).thenReturn(customerEntity);
         actual = service.get(1L);
     }
@@ -100,6 +102,7 @@ class CustomerServiceImplTest {
 
     @Test
     void delete() {
+        Assertions.assertNotNull(service.delete(1L));
     }
 
     @Test

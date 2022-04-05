@@ -1,5 +1,6 @@
 package com.gfarkas.service;
 
+import com.gfarkas.Exception.NoSuchElementFoundException;
 import com.gfarkas.controller.CustomerServiceInterface;
 import com.gfarkas.dao.CustomerEntity;
 import com.gfarkas.dao.CustomerRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerServiceInterface {
@@ -23,7 +25,12 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public Customer get(Long id) {
-        return mapper.toCustomer(repository.getById(id));
+        Optional<CustomerEntity> optionalCustomer = repository.findById(id);
+        if (optionalCustomer.isPresent()) {
+            return mapper.toCustomer(optionalCustomer.get());
+        }
+
+        throw new NoSuchElementFoundException("Customer with id: " + id + " not found!");
     }
 
     @Override
@@ -44,9 +51,17 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public Customer update(Long id, Customer customer) {
+        Optional<CustomerEntity> customerOptional = repository.findById(id);
+        CustomerEntity existingCustomer;
+        if (customerOptional.isPresent()) {
+            existingCustomer = customerOptional.get();
+            CustomerEntity customerToSave = mapper.toCustomerEntity(customer);
+            customerToSave.setId(existingCustomer.getId());
 
-        // TODO: validation needed
-        return null;
+            return mapper.toCustomer(repository.save(customerToSave));
+        }
+
+        throw new NoSuchElementFoundException("Customer with id: " + id + " not found!");
     }
 
     @Override
