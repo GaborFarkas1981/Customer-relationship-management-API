@@ -94,7 +94,8 @@ class CustomerServiceImplTest {
     }
 
     @Test
-    void update() {
+    void updateShouldReturnDto() {
+        Assertions.assertNotNull(service.update(1L, new Customer()));
     }
 
     @Test
