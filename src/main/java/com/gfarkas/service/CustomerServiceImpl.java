@@ -1,11 +1,13 @@
 package com.gfarkas.service;
 
-import com.gfarkas.Exception.NoSuchElementFoundException;
+import com.gfarkas.exception.NoSuchElementFoundException;
 import com.gfarkas.controller.CustomerServiceInterface;
 import com.gfarkas.dao.CustomerEntity;
 import com.gfarkas.dao.CustomerRepository;
 import com.gfarkas.dto.Customer;
 import com.gfarkas.mapper.CustomerMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     final private CustomerRepository repository;
     final private CustomerMapper mapper;
+
+    Logger logger = LoggerFactory.getLogger(CustomerServiceImpl.class);
 
     public CustomerServiceImpl(CustomerRepository repository, CustomerMapper mapper) {
         this.repository = repository;
@@ -77,6 +81,7 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public ResponseEntity handleException(Throwable t) {
+        logger.info(t.getMessage());
         return null;
     }
 }

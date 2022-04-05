@@ -36,3 +36,4 @@ With a getter we can access the value of a particular field. We can create our o
 
 - All endpoints can only receive DTOs
 - @Transactional annotations are applied in default JpaRepository / CrudRepository implementation
+- A customer must have the following attributes: name, surname, email and birthdate (validation added)

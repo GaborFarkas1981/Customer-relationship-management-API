@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping(value = "/api/customer")
@@ -36,7 +37,7 @@ public class CustomerController {
     }
 
     @PostMapping(value = {"/"})
-    public ResponseEntity<Customer> create(@RequestBody Customer entity) {
+    public ResponseEntity<Customer> create(@Valid @RequestBody Customer entity) {
         try {
             return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
         } catch (Throwable t) {
@@ -45,7 +46,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = {"/{id}"})
-    public ResponseEntity<Customer> update(@PathVariable("id") Long id, @RequestBody Customer entity) {
+    public ResponseEntity<Customer> update(@PathVariable("id") Long id, @Valid @RequestBody Customer entity) {
         try {
             return new ResponseEntity<>(service.update(id, entity), HttpStatus.OK);
         } catch (Throwable t) {
