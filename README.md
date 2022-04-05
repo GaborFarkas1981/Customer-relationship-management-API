@@ -26,7 +26,8 @@ With a getter we can access the value of a particular field. We can create our o
 
 - Abstraction: We can hide (not exposing) complex business logic by creating private methods for them and allowing access for only simplified logic
 
-- Polymorphism: We can allow executing the same method with different outcome.
+- Polymorphism: Our CustumerServiceImpl class implements the CustomerServiceInterface, implements, and overrides all of its method. 
+  We can allow executing the same method with different outcome.
   - Method overriding: We can override the inherited methods of a superclass by using the same signature of the method,
   and we can implement a different business logic in it. To show that it is an overrode method we can use the @Override annotation.
   - Method overloading: We can create methods with the same name but different signature (order or number of different parameters)
