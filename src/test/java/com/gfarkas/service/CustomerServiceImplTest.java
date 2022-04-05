@@ -22,20 +22,18 @@ class CustomerServiceImplTest {
     @InjectMocks
     CustomerServiceImpl service;
 
-    private CustomerEntity customerEntity;
-
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
         ZoneId zoneId = ZoneId.of("UTC-1");
         ZonedDateTime birthDate = ZonedDateTime.of(2000, 10, 20, 23, 45, 0, 0, zoneId);
-        customerEntity = new CustomerEntity();
+        CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setBirthdate(birthDate);
         customerEntity.setEmail("email");
         customerEntity.setName("name");
         customerEntity.setSurename("sureName");
         customerEntity.setId(1L);
-        Mockito.when(repository.findById(1L)).thenReturn(Optional.of(customerEntity));
+        Mockito.when(repository.getById(1L)).thenReturn(customerEntity);
     }
 
     @Test

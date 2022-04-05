@@ -19,7 +19,7 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public CustomerEntity get(Long id) {
-        return null;
+        return repository.getById(id);
     }
 
     @Override

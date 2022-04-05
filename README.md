@@ -32,3 +32,5 @@ With a getter we can access the value of a particular field. We can create our o
   and we can implement a different business logic in it. To show that it is an overrode method we can use the @Override annotation.
   - Method overloading: We can create methods with the same name but different signature (order or number of different parameters)
   to create different business logic for them.
+
+Get and List endpoints can only receive DTOs
