@@ -33,4 +33,5 @@ With a getter we can access the value of a particular field. We can create our o
   - Method overloading: We can create methods with the same name but different signature (order or number of different parameters)
   to create different business logic for them.
 
-Get and List endpoints can only receive DTOs
+All endpoints can only receive DTOs
+@Transactional annotations are applied in default JpaRepository / CrudRepository implementation

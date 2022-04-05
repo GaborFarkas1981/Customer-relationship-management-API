@@ -56,8 +56,9 @@ class CustomerServiceImplTest {
         customerList.add(customerDto);
         customerList.add(customerDto2);
         Mockito.when(mapper.toCustomer(Mockito.any())).thenReturn(customerDto);
+        Mockito.when(mapper.toCustomerEntity(Mockito.any())).thenReturn(customerEntity);
         Mockito.when(mapper.toCustomers(Mockito.any())).thenReturn(customerList);
-        Mockito.when(repository.save(Mockito.any())).thenReturn(customerDto);
+        Mockito.when(repository.save(Mockito.any())).thenReturn(customerEntity);
         actual = service.get(1L);
     }
 

@@ -1,6 +1,7 @@
 package com.gfarkas.service;
 
 import com.gfarkas.controller.CustomerServiceInterface;
+import com.gfarkas.dao.CustomerEntity;
 import com.gfarkas.dao.CustomerRepository;
 import com.gfarkas.dto.Customer;
 import com.gfarkas.mapper.CustomerMapper;
@@ -33,11 +34,18 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public Customer create(Customer customer) {
-        return null;
+
+        // TODO: validation needed
+        CustomerEntity entity = mapper.toCustomerEntity(customer);
+        CustomerEntity savedEntity = repository.save(entity);
+
+        return mapper.toCustomer(savedEntity);
     }
 
     @Override
     public Customer update(Long id, Customer customer) {
+
+        // TODO: validation needed
         return null;
     }
 
