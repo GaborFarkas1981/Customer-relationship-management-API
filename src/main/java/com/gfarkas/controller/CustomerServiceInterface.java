@@ -1,6 +1,6 @@
 package com.gfarkas.controller;
 
-import com.gfarkas.dao.CustomerEntity;
+import com.gfarkas.dto.Customer;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
@@ -14,15 +14,15 @@ import java.util.List;
  */
 public interface CustomerServiceInterface {
 
-    CustomerEntity get(Long id);
+    Customer get(Long id);
 
-    List<CustomerEntity> list();
+    List<Customer> list();
 
-    CustomerEntity create(CustomerEntity customerEntity);
+    Customer create(Customer customer);
 
-    CustomerEntity update(Long id, CustomerEntity customerEntity);
+    Customer update(Long id, Customer customer);
 
-    CustomerEntity delete(Long id);
+    Customer delete(Long id);
 
     ResponseEntity handleException(Throwable t);
 }

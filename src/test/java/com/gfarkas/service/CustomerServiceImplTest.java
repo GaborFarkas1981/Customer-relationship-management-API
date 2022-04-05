@@ -2,6 +2,8 @@ package com.gfarkas.service;
 
 import com.gfarkas.dao.CustomerEntity;
 import com.gfarkas.dao.CustomerRepository;
+import com.gfarkas.dto.Customer;
+import com.gfarkas.mapper.CustomerMapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,12 +14,14 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.Optional;
 
 class CustomerServiceImplTest {
 
     @Mock
     CustomerRepository repository;
+
+    @Mock
+    CustomerMapper mapper;
 
     @InjectMocks
     CustomerServiceImpl service;
@@ -33,12 +37,23 @@ class CustomerServiceImplTest {
         customerEntity.setName("name");
         customerEntity.setSurename("sureName");
         customerEntity.setId(1L);
-        Mockito.when(repository.getById(1L)).thenReturn(customerEntity);
+        Customer customerDto = new Customer();
+        customerDto.setBirthdate(birthDate);
+        customerDto.setEmail("email");
+        customerDto.setName("name");
+        customerDto.setSurename("sureName");
+        customerDto.setId(1L);
+        Mockito.when(mapper.toCustomer(Mockito.any())).thenReturn(customerDto);
     }
 
     @Test
-    void getShouldReturnOptionalEntityById() {
+    void getShouldReturnCustomerDtoById() {
        Assertions.assertNotNull(service.get(1L));
+    }
+
+    @Test
+    void getShouldReturnDto() {
+        Assertions.assertInstanceOf(Customer.class, service.get(1L));
     }
 
     @Test

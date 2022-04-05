@@ -1,6 +1,6 @@
 package com.gfarkas.controller;
 
-import com.gfarkas.dao.CustomerEntity;
+import com.gfarkas.dto.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = {"/{id}"})
-    public ResponseEntity<CustomerEntity> get(@PathVariable("id") Long id) {
+    public ResponseEntity<Customer> get(@PathVariable("id") Long id) {
         try {
             return new ResponseEntity<>(service.get(id), HttpStatus.OK);
         } catch (Throwable t) {
@@ -27,7 +27,7 @@ public class CustomerController {
     }
 
     @GetMapping(value = {"/"})
-    public ResponseEntity<List<CustomerEntity>> list() {
+    public ResponseEntity<List<Customer>> list() {
         try {
             return ResponseEntity.ok(service.list());
         } catch (Throwable t) {
@@ -36,7 +36,7 @@ public class CustomerController {
     }
 
     @PostMapping(value = {"/"})
-    public ResponseEntity<CustomerEntity> create(@RequestBody CustomerEntity entity) {
+    public ResponseEntity<Customer> create(@RequestBody Customer entity) {
         try {
             return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
         } catch (Throwable t) {
@@ -45,7 +45,7 @@ public class CustomerController {
     }
 
     @PutMapping(value = {"/{id}"})
-    public ResponseEntity<CustomerEntity> update(@PathVariable("id") Long id, @RequestBody CustomerEntity entity) {
+    public ResponseEntity<Customer> update(@PathVariable("id") Long id, @RequestBody Customer entity) {
         try {
             return new ResponseEntity<>(service.update(id, entity), HttpStatus.OK);
         } catch (Throwable t) {
@@ -54,7 +54,7 @@ public class CustomerController {
     }
 
     @DeleteMapping(value = {"/{id}"})
-    public ResponseEntity<CustomerEntity> delete(@PathVariable("id") Long id) {
+    public ResponseEntity<Customer> delete(@PathVariable("id") Long id) {
         try {
             return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
         } catch (Throwable t) {
