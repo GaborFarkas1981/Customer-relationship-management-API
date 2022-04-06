@@ -20,46 +20,26 @@ public class CustomerController {
 
     @GetMapping(value = {"/{id}"})
     public ResponseEntity<Customer> get(@PathVariable("id") Long id) {
-        try {
-            return new ResponseEntity<>(service.get(id), HttpStatus.OK);
-        } catch (Throwable t) {
-            return service.handleException(t);
-        }
+        return new ResponseEntity<>(service.get(id), HttpStatus.OK);
     }
 
     @GetMapping(value = {"/"})
     public ResponseEntity<List<Customer>> list() {
-        try {
-            return ResponseEntity.ok(service.list());
-        } catch (Throwable t) {
-            return service.handleException(t);
-        }
+        return ResponseEntity.ok(service.list());
     }
 
     @PostMapping(value = {"/"})
     public ResponseEntity<Customer> create(@Valid @RequestBody Customer entity) {
-        try {
-            return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
-        } catch (Throwable t) {
-            return service.handleException(t);
-        }
+        return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
     }
 
     @PutMapping(value = {"/{id}"})
     public ResponseEntity<Customer> update(@PathVariable("id") Long id, @Valid @RequestBody Customer entity) {
-        try {
-            return new ResponseEntity<>(service.update(id, entity), HttpStatus.OK);
-        } catch (Throwable t) {
-            return service.handleException(t);
-        }
+        return new ResponseEntity<>(service.update(id, entity), HttpStatus.OK);
     }
 
     @DeleteMapping(value = {"/{id}"})
     public ResponseEntity<Customer> delete(@PathVariable("id") Long id) {
-        try {
-            return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
-        } catch (Throwable t) {
-            return service.handleException(t);
-        }
+        return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
 }

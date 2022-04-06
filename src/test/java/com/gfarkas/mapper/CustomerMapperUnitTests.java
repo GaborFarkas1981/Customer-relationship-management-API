@@ -1,5 +1,6 @@
 package com.gfarkas.mapper;
 
+import com.gfarkas.CommonTestResource;
 import com.gfarkas.dao.CustomerEntity;
 import com.gfarkas.dto.Customer;
 import org.junit.jupiter.api.Assertions;
@@ -9,30 +10,22 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 
 @ExtendWith(MockitoExtension.class)
-class CustomerMapperUnitTests {
+class CustomerMapperUnitTests extends CommonTestResource {
 
     @InjectMocks
     CustomerMapper mapper = new CustomerMapperImpl();
 
-    private Date birthDate;
-
     @Test
-    public void mapperShouldMapDtoToDao() throws ParseException {
+    public void mapperShouldMapDtoToDao() {
         Customer dto = new Customer();
 
-        String dateString = "January 2, 2010";
-        birthDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(dateString);
-
-        dto.setBirthdate(birthDate);
-        dto.setEmail("some@one.com");
-        dto.setSurename("sureName");
-        dto.setName("name");
+        dto.setBirthdate(getBirthDate(null));
+        dto.setEmail(email);
+        dto.setSurename(surname);
+        dto.setName(name);
         CustomerEntity entity = mapper.toCustomerEntity(dto);
 
         Assertions.assertEquals(dto.getBirthdate(), entity.getBirthdate());
@@ -41,17 +34,15 @@ class CustomerMapperUnitTests {
         Assertions.assertEquals(dto.getSurename(), entity.getSurename());
 
         Assertions.assertNull(entity.getId());
-
     }
-
 
     @Test
     public void mapperShouldMapDaoToDto() {
         CustomerEntity entity = new CustomerEntity();
-        entity.setBirthdate(birthDate);
-        entity.setEmail("some@one.com");
-        entity.setSurename("sureName");
-        entity.setName("name");
+        entity.setBirthdate(getBirthDate(null));
+        entity.setEmail(email);
+        entity.setSurename(surname);
+        entity.setName(name);
         Customer dto = mapper.toCustomer(entity);
 
         Assertions.assertEquals(entity.getBirthdate(), dto.getBirthdate());
@@ -60,6 +51,5 @@ class CustomerMapperUnitTests {
         Assertions.assertEquals(entity.getSurename(), dto.getSurename());
 
         Assertions.assertNull(dto.getId());
-
     }
 }

@@ -23,6 +23,4 @@ public interface CustomerServiceInterface {
     Customer update(Long id, Customer customer);
 
     Customer delete(Long id);
-
-    ResponseEntity handleException(Throwable t);
 }

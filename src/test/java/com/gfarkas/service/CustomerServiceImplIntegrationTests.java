@@ -1,35 +1,23 @@
 package com.gfarkas.service;
 
+import com.gfarkas.CommonTestResource;
 import com.gfarkas.dto.Customer;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 @SpringBootTest
-class CustomerServiceImplIntegrationalTests {
+class CustomerServiceImplIntegrationTests extends CommonTestResource {
 
-
-    CustomerServiceImpl service;
+    private final CustomerServiceImpl service;
 
     @Autowired
-    public CustomerServiceImplIntegrationalTests(CustomerServiceImpl service) {
+    public CustomerServiceImplIntegrationTests(CustomerServiceImpl service) {
         this.service = service;
     }
-
-	private Date birthDate;
-
-	@BeforeEach
-	void setUp() throws ParseException {
-        String dateString = "January 2, 2010";
-        birthDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(dateString);
-	}
 
     @Test
     void contextLoads() {
@@ -37,7 +25,7 @@ class CustomerServiceImplIntegrationalTests {
 
     @Test
     public void getShouldReturnDtoByIdFromDb() {
-        Customer customer = createCustomer();
+        Customer customer = saveCustomer(null, null, null, null);
         Customer customerFromDb = service.get(3L);
 
         Assertions.assertNotNull(customerFromDb);
@@ -48,12 +36,8 @@ class CustomerServiceImplIntegrationalTests {
         Assertions.assertEquals(customer.getBirthdate(), customerFromDb.getBirthdate());
     }
 
-    private Customer createCustomer() {
-        Customer customer = new Customer();
-        customer.setName("John");
-        customer.setSurename("Doe");
-        customer.setEmail("john@doe.com");
-        customer.setBirthdate(birthDate);
+    private Customer saveCustomer(String customerName, String customerSurname, String customerEmail, Date customerBirthdate) {
+        Customer customer = createCustomer(customerName, customerSurname, customerEmail, customerBirthdate);
 
         return service.create(customer);
     }

@@ -17,7 +17,12 @@ First I need a Spring Boot project, dependencies.
 - For using Mapstruct with Lombok you need to make some modification: https://springframework.guru/using-mapstruct-with-project-lombok/
 - Mapstruct works with Lombok, mapper tests passed
 - All endpoints can only receive DTOs
-- @Transactional annotations are applied in default JpaRepository / CrudRepository implementation. Update all the attributes (<font color="red">at once</font>)
+- Update all the attributes (<font color="red">at once</font>) using @Transactional annotation:
+  A Proxy is Created that wraps the function retrieve.
+- Project instructions says "Delete an existing customer". It is not a good idea.
+  <font color="red">IS_ACTIVE</font> flag does serve an important purpose. Namely, to allow us to retain customer data even if a customer is “soft-deleted” from our system. 
+  We could simply delete the customer record entirely. But this would break any foreign key associations we might have with other permanent records
+  (for example, PURCHASE records).
 - A customer <font color="red">must have</font> the following attributes: name, surname, email and birthdate (validation added)
 
 # OOP principles:
