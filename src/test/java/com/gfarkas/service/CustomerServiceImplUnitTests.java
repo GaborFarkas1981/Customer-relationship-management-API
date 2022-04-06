@@ -33,7 +33,6 @@ class CustomerServiceImplUnitTests extends CommonTestResource {
     private Customer actual;
     private final String expectedMessage = "Customer with id:";
 
-
     @BeforeEach
     void setup(TestInfo info) {
         MockitoAnnotations.openMocks(this);
