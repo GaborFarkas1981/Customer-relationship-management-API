@@ -1,0 +1,23 @@
+# latest version of Compose file format
+version: '3.8'
+# services to package in a container
+services:
+  crm-backend:
+    container_name: crm-backend
+    build:
+      # path of Dockerfile is the same as the path of docker-compose.ymla
+      context: .
+      dockerfile: Dockerfile
+    # build from the latest image
+    image: crm-backend:latest
+    # left side of the colon is the port where you can access container
+    # right side of the colon is the port of the container which is accessible
+    ports:
+      - "8080:8080"
+    # name of the networks where the container accessible
+    networks:
+      - spring-cloud-network
+networks:
+  # Containers running in the same bridge network can communicate with each other
+  spring-cloud-network:
+    driver: bridge

@@ -11,6 +11,7 @@
 	<groupId>com.gfarkas</groupId>
 	<artifactId>Customer-relationship-management-API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
 	<name>Customer-relationship-management-API</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -63,6 +64,11 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

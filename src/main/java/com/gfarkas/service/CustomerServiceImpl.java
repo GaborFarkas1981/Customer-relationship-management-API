@@ -44,8 +44,6 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public Customer create(Customer customer) {
-
-        // TODO: validation needed
         CustomerEntity entity = mapper.toCustomerEntity(customer);
         CustomerEntity savedEntity = repository.save(entity);
 
@@ -68,6 +66,8 @@ public class CustomerServiceImpl implements CustomerServiceInterface {
 
     @Override
     public Customer delete(Long id) {
+        // TODO: It's not a good practice to really erase something from the databse,
+        // TODO: It would be better just to add a flag or something (isDeleted = true)
         Optional<CustomerEntity> customerOptional = repository.findById(id);
         CustomerEntity existingCustomer;
         if (customerOptional.isPresent()) {
