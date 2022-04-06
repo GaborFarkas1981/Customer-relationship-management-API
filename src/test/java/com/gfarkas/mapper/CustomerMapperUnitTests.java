@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 
 
 @ExtendWith(MockitoExtension.class)
-class CustomerMapperTest {
+class CustomerMapperUnitTests {
 
     @InjectMocks
     CustomerMapper mapper = new CustomerMapperImpl();
