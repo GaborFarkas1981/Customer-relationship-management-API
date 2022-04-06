@@ -3,7 +3,7 @@ package com.gfarkas.dao;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Entity
 @Data
@@ -16,5 +16,5 @@ public class CustomerEntity {
     private String name;
     private String surename;
     private String email;
-    private ZonedDateTime birthdate;
+    private Date birthdate;
 }

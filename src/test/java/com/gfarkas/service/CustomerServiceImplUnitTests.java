@@ -12,11 +12,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 class CustomerServiceImplUnitTests {
 
@@ -30,13 +28,13 @@ class CustomerServiceImplUnitTests {
     CustomerServiceImpl service;
 
     private Customer actual;
-    private ZonedDateTime birthDate;
+    private Date birthDate;
 
     @BeforeEach
-    void setup() {
+    void setup() throws ParseException {
         MockitoAnnotations.openMocks(this);
-        ZoneId zoneId = ZoneId.of("UTC-1");
-        birthDate = ZonedDateTime.of(2000, 10, 20, 23, 45, 0, 0, zoneId);
+        String dateString = "January 2, 2010";
+        birthDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(dateString);
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setBirthdate(birthDate);
         customerEntity.setEmail("email");

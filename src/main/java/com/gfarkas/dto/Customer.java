@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 @Data
 public class Customer {
@@ -18,5 +18,5 @@ public class Customer {
     @NotBlank(message = "Email cannot be empty")
     private String email;
     @NotNull(message = "Birthdate is mandatory")
-    private ZonedDateTime birthdate;
+    private Date birthdate;
 }

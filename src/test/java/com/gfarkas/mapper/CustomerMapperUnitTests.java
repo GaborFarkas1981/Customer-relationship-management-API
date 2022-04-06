@@ -8,8 +8,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -18,13 +20,14 @@ class CustomerMapperUnitTests {
     @InjectMocks
     CustomerMapper mapper = new CustomerMapperImpl();
 
-    private ZonedDateTime birthDate;
+    private Date birthDate;
 
     @Test
-    public void mapperShouldMapDtoToDao() {
+    public void mapperShouldMapDtoToDao() throws ParseException {
         Customer dto = new Customer();
-        ZoneId zoneId = ZoneId.of("UTC-1");
-        birthDate = ZonedDateTime.of(2000, 10, 20, 23, 45, 0, 0, zoneId);
+
+        String dateString = "January 2, 2010";
+        birthDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(dateString);
 
         dto.setBirthdate(birthDate);
         dto.setEmail("some@one.com");

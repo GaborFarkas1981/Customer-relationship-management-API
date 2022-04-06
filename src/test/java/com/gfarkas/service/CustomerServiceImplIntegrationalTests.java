@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 @SpringBootTest
 class CustomerServiceImplIntegrationalTests {
@@ -21,12 +23,12 @@ class CustomerServiceImplIntegrationalTests {
         this.service = service;
     }
 
-	private  ZonedDateTime birthDate;
+	private Date birthDate;
 
 	@BeforeEach
-	void setUp() {
-		ZoneId zoneId = ZoneId.of("UTC-1");
-		birthDate = ZonedDateTime.of(2000, 10, 20, 23, 45, 0, 0, zoneId);
+	void setUp() throws ParseException {
+        String dateString = "January 2, 2010";
+        birthDate = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(dateString);
 	}
 
     @Test
@@ -34,19 +36,25 @@ class CustomerServiceImplIntegrationalTests {
     }
 
     @Test
-    public void createShouldReturnCreatedDto() {
+    public void getShouldReturnDtoByIdFromDb() {
+        Customer customer = createCustomer();
+        Customer customerFromDb = service.get(3L);
+
+        Assertions.assertNotNull(customerFromDb);
+        Assertions.assertInstanceOf(Customer.class, customerFromDb);
+        Assertions.assertEquals(customer.getName(), customerFromDb.getName());
+        Assertions.assertEquals(customer.getSurename(), customerFromDb.getSurename());
+        Assertions.assertEquals(customer.getEmail(), customerFromDb.getEmail());
+        Assertions.assertEquals(customer.getBirthdate(), customerFromDb.getBirthdate());
+    }
+
+    private Customer createCustomer() {
         Customer customer = new Customer();
         customer.setName("John");
         customer.setSurename("Doe");
         customer.setEmail("john@doe.com");
         customer.setBirthdate(birthDate);
-		Customer customerInDb = service.create(customer);
 
-		Assertions.assertNotNull(customerInDb);
-        Assertions.assertInstanceOf(Customer.class, customerInDb);
-        Assertions.assertEquals(customer.getName(), customerInDb.getName());
-        Assertions.assertEquals(customer.getSurename(), customerInDb.getSurename());
-        Assertions.assertEquals(customer.getEmail(), customerInDb.getEmail());
-        Assertions.assertEquals(customer.getBirthdate(), customerInDb.getBirthdate());
-	}
+        return service.create(customer);
+    }
 }

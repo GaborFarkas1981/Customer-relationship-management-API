@@ -12,8 +12,7 @@ First I need a Spring Boot project, dependencies.
 - Web-application structure created: controller, dao, dto, service packages
 - db connection properties in application.properties
 - import.sql will be executed automatically on every startup for db test
-- OpenAPI dependency added, you can download documentation of CostumerAPI in YAML format from http://localhost:8080/v3/api-docs.yaml
-- You can test endpoints by visiting http://localhost:8080/swagger-ui.html
+- OpenAPI dependency added, you can download documentation of CostumerAPI in YAML format from http://localhost:8780/v3/api-docs.yaml
 - Mapstruct dependency added for mapping data between dao and dto
 - For using Mapstruct with Lombok you need to make some modification: https://springframework.guru/using-mapstruct-with-project-lombok/
 - Mapstruct works with Lombok, mapper tests passed
@@ -46,17 +45,24 @@ With a getter we can access the value of a particular field. We can create our o
 - "-t tagname" to tagging our docker image
 - "." means the Dockerfile is in the same folder where we execute docker build
 # Create and run a container from an image
-- You can run a container from the image by executing "docker run -p 127.0.0.1:80:8080 gfarkas/crm:v1.0.0"
-- Where "-p" is the port binding (localhost:80 is where you can access the container's inner 8080 port)
+- You can run a container from the image by executing "docker run -p 8780:8080 gfarkas/crm:v1.0.0"
+- Where "-p" is the port binding (localhost:8780 is where you can access the container's inner 8080 port)
 - So the left side of the colon is where you can access the container and the right side is the port inside the container what you want to expose.
 - With "-d" you can run the application in detached/headless mode.
-- You can run a container by the id of the image as well. So docker image ls, find the id and "docker run -p 127.0.0.1:80:8080 c86"
+- You can run a container by the id of the image as well. So docker image ls, find the id and "docker run -p 127.0.0.1:8780:8080 c86"
 - Where "c86" is the first three character of the id of image. It's enough to distinguish from other ids. 
 # Create an image and run a container from it using docker-compose
 - I've created a docker-compose.yml file. You can run the application by executing "docker-compose up"
 - It will build an image from the Dockerfile and configure (expose port, create network etc.) and run a container from that image
   
 # Endpoints of the application
+- You can test endpoints by visiting http://localhost:8780/swagger-ui.html
+#
+- H2-console: http://localhost:8780/h2-console
+- JDBC URL: jdbc:h2:mem:customer_management_db
+- User Name: sa
+- No password needed
+#
 - GET  &emsp;   path: /api/customer/{id}  &emsp;&emsp;  get one customer by its id
 - GET  &emsp;   path: /api/customer/      &emsp;&emsp;  list all the customers in db
 - POST &emsp;   path: /api/customer/      &emsp;&emsp;  create a customer from the payload (creates a new entry in the db with a new id)

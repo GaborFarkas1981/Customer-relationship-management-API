@@ -13,7 +13,7 @@ services:
     # left side of the colon is the port where you can access container
     # right side of the colon is the port of the container which is accessible
     ports:
-      - "8080:8080"
+      - "8780:8080"
     # name of the networks where the container accessible
     networks:
       - spring-cloud-network
